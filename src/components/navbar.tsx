@@ -1,16 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { Download, Menu, X } from "lucide-react";
 import { navLinks, profile } from "@/data/resume";
+import { useActiveSection } from "@/hooks/use-active-section";
 import { ThemeToggle } from "./theme-toggle";
+
+// Hero and Achievements have no nav link; tracking them clears the highlight there.
+const TRACKED = ["top", ...navLinks.map((l) => l.href.slice(1)), "achievements"];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const active = useActiveSection(TRACKED);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 28, restDelta: 0.001 });
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-[var(--nav-bg)] backdrop-blur-md">
+      {/* Reading progress */}
+      <motion.div
+        aria-hidden
+        style={{ scaleX: reduce ? scrollYProgress : progress }}
+        className="absolute inset-x-0 -bottom-px h-[2px] origin-left bg-gradient-to-r from-gold via-[var(--gold-text)] to-gold"
+      />
       <nav
         aria-label="Primary"
         className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6"
@@ -31,16 +45,30 @@ export function Navbar() {
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="relative px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-primary after:absolute after:inset-x-3 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 hover:after:scale-x-100"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = active === link.href.slice(1);
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  aria-current={isActive ? "location" : undefined}
+                  className={`relative block px-3 py-2 text-sm font-medium transition-colors hover:text-primary after:absolute after:inset-x-3 after:bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-gold/60 after:transition-transform after:duration-300 hover:after:scale-x-100 ${
+                    isActive ? "text-primary" : "text-muted"
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active"
+                      aria-hidden
+                      className="absolute inset-x-3 bottom-0.5 h-[2px] rounded-full bg-gold"
+                      transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 32 }}
+                    />
+                  )}
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="flex items-center gap-2">
@@ -88,9 +116,15 @@ export function Navbar() {
                   <a
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block border-b border-line py-3 font-serif text-xl text-primary-strong dark:text-text"
+                    aria-current={active === link.href.slice(1) ? "location" : undefined}
+                    className={`flex items-center justify-between border-b border-line py-3 font-serif text-xl ${
+                      active === link.href.slice(1) ? "text-primary" : "text-primary-strong dark:text-text"
+                    }`}
                   >
                     {link.label}
+                    {active === link.href.slice(1) && (
+                      <span aria-hidden className="size-2 rotate-45 bg-gold" />
+                    )}
                   </a>
                 </motion.li>
               ))}
