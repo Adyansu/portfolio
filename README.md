@@ -2,13 +2,13 @@
 
 Personal portfolio of **Adyansu Beura**, final-year Electrical Engineering undergraduate at IIT Kanpur, applying for frontend engineering roles.
 
-**Live site:** _coming soon on Vercel_
+**Live site:** https://portfolio-rouge-eta-c3rfiz2h7h.vercel.app
 
 A maroon, gold and ivory design with a real-time 3D hero and an interactive circuit simulator, built to show frontend craft rather than just describe it.
 
 ## Highlights
 
-- **3D gold ring hero:** React Three Fiber scene with a procedurally lit gold band and a faceted ruby. It tilts toward the pointer anywhere on the page. The Three.js bundle is code-split and client-only, falls back to SVG without WebGL, pauses rendering when off-screen, and stays still under `prefers-reduced-motion`.
+- **3D platinum ring hero:** React Three Fiber scene with a procedurally lit platinum band and a faceted sapphire. It tilts toward the pointer anywhere on the page. The Three.js bundle is code-split and client-only, falls back to SVG without WebGL, pauses rendering when off-screen, and stays still under `prefers-reduced-motion`.
 - **Circuit Lab:** an in-browser RC / RL / RLC transient simulator.
   - Circuits are modelled as state-space systems and integrated with **BDF2 (Gear-2)**.
   - The step size adapts to the circuit's fastest pole, so stiff circuits stay stable.

@@ -1,40 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Mail } from "lucide-react";
 import { GitHubIcon } from "@/components/icons";
-import { heroRoles, profile } from "@/data/resume";
+import { profile } from "@/data/resume";
 import { HeroVisual } from "./hero-visual";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-
-function RoleRotator() {
-  const [i, setI] = useState(0);
-  const reduce = useReducedMotion();
-
-  useEffect(() => {
-    const id = setInterval(() => setI((n) => (n + 1) % heroRoles.length), 2600);
-    return () => clearInterval(id);
-  }, []);
-
-  return (
-    <span className="relative inline-flex h-[1.4em] overflow-hidden align-bottom">
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={heroRoles[i]}
-          initial={reduce ? { opacity: 0 } : { y: "100%", opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={reduce ? { opacity: 0 } : { y: "-100%", opacity: 0 }}
-          transition={{ duration: 0.45, ease }}
-          className="block whitespace-nowrap font-serif italic text-primary"
-        >
-          {heroRoles[i]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
-  );
-}
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -88,11 +60,7 @@ export function Hero() {
           className="gold-rule my-6 max-w-sm origin-left"
         />
 
-        <motion.p {...fadeUp(1)} className="text-2xl text-muted sm:text-3xl">
-          <RoleRotator />
-        </motion.p>
-
-        <motion.p {...fadeUp(1.1)} className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+        <motion.p {...fadeUp(1)} className="max-w-xl text-base leading-relaxed text-muted sm:text-lg">
           {profile.tagline}
         </motion.p>
 

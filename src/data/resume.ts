@@ -54,14 +54,6 @@ export const profile = {
   },
 } as const;
 
-/** Cycling line under the name in the hero. */
-export const heroRoles = [
-  "Frontend Engineer",
-  "Full-stack builder",
-  "3D graphics tinkerer",
-  "Interaction design nerd",
-];
-
 export const aboutStats = [
   { value: "Qualcomm", label: "Engineering intern, 2026" },
   { value: "8.6", label: "CPI at IIT Kanpur" },

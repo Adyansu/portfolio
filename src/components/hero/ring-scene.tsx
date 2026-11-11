@@ -11,8 +11,8 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-const GOLD = "#e0b45a";
-const RUBY = "#a3122a";
+const PLATINUM = "#e5e4e2";
+const SAPPHIRE = "#1f4fd1";
 
 const BAND_RADIUS = 1.25;
 const BAND_TUBE = 0.2;
@@ -56,19 +56,19 @@ function Ring({ animate }: { animate: boolean }) {
         <mesh castShadow>
           <torusGeometry args={[BAND_RADIUS, BAND_TUBE, 64, 220]} />
           <meshPhysicalMaterial
-            color={GOLD}
+            color={PLATINUM}
             metalness={1}
-            roughness={0.16}
-            clearcoat={0.6}
-            clearcoatRoughness={0.12}
-            envMapIntensity={1.5}
+            roughness={0.12}
+            clearcoat={0.8}
+            clearcoatRoughness={0.08}
+            envMapIntensity={1.6}
           />
         </mesh>
 
         {/* Setting (bezel) */}
         <mesh position={[0, TOP + 0.06, 0]}>
           <cylinderGeometry args={[0.32, 0.18, 0.22, 48]} />
-          <meshPhysicalMaterial color={GOLD} metalness={1} roughness={0.2} envMapIntensity={1.5} />
+          <meshPhysicalMaterial color={PLATINUM} metalness={1} roughness={0.16} envMapIntensity={1.6} />
         </mesh>
 
         {/* Prongs */}
@@ -81,25 +81,26 @@ function Ring({ animate }: { animate: boolean }) {
               rotation={[Math.sin(a) * 0.35, 0, -Math.cos(a) * 0.35]}
             >
               <capsuleGeometry args={[0.035, 0.3, 4, 12]} />
-              <meshPhysicalMaterial color={GOLD} metalness={1} roughness={0.2} />
+              <meshPhysicalMaterial color={PLATINUM} metalness={1} roughness={0.16} />
             </mesh>
           );
         })}
 
-        {/* Ruby */}
+        {/* Sapphire */}
         <mesh geometry={gem} position={[0, TOP + 0.6, 0]}>
-          {/* Opaque faceted gem: transmission renders black on a transparent canvas */}
+          {/* Opaque faceted gem: transmission renders black on a transparent canvas.
+              Sapphire is corundum, like ruby, so the IOR stays 1.77. */}
           <meshPhysicalMaterial
-            color={RUBY}
-            emissive="#4a0012"
-            emissiveIntensity={0.35}
+            color={SAPPHIRE}
+            emissive="#071a5c"
+            emissiveIntensity={0.4}
             metalness={0.15}
             roughness={0.04}
             clearcoat={1}
             clearcoatRoughness={0}
             ior={1.77}
             specularIntensity={1}
-            specularColor="#ffd6dc"
+            specularColor="#dbe7ff"
             envMapIntensity={2.4}
             flatShading
           />
@@ -166,7 +167,7 @@ export default function RingScene({
         </Float>
 
         {animate && (
-          <Sparkles count={50} scale={[5, 4, 3]} size={2.2} speed={0.35} color="#e8c77a" opacity={0.8} />
+          <Sparkles count={50} scale={[5, 4, 3]} size={2.2} speed={0.35} color="#dfe6f5" opacity={0.85} />
         )}
 
         <ContactShadows
@@ -175,23 +176,23 @@ export default function RingScene({
           scale={7}
           blur={2.6}
           far={3}
-          color="#5a1a1e"
+          color="#2e3340"
           resolution={256}
           frames={animate ? Infinity : 1}
         />
 
         {/* Procedural studio lighting: no HDR download needed */}
         <Environment resolution={256}>
-          {/* Warm base so polished metal reflects bronze rather than black */}
-          <color attach="background" args={["#7a5a32"]} />
-          <Lightformer form="rect" intensity={2.5} color="#fff3dc" position={[0, 0, 6]} scale={[10, 4, 1]} />
-          <Lightformer form="rect" intensity={1.5} color="#ffe2b0" position={[0, -5, 0]} rotation-x={-Math.PI / 2} scale={[10, 10, 1]} />
+          {/* Neutral grey base so polished platinum reflects cool steel tones, not black or bronze */}
+          <color attach="background" args={["#767a84"]} />
+          <Lightformer form="rect" intensity={2.5} color="#ffffff" position={[0, 0, 6]} scale={[10, 4, 1]} />
+          <Lightformer form="rect" intensity={1.5} color="#eef2ff" position={[0, -5, 0]} rotation-x={-Math.PI / 2} scale={[10, 10, 1]} />
           <group rotation={[-Math.PI / 3, 0, 1]}>
             <Lightformer form="circle" intensity={4} rotation-x={Math.PI / 2} position={[0, 5, -9]} scale={2} />
             <Lightformer form="circle" intensity={2} rotation-y={Math.PI / 2} position={[-5, 1, -1]} scale={2} />
             <Lightformer form="circle" intensity={2} rotation-y={Math.PI / 2} position={[-5, -1, -1]} scale={2} />
             <Lightformer form="circle" intensity={2} rotation-y={-Math.PI / 2} position={[10, 1, 0]} scale={8} />
-            <Lightformer form="ring" color="#ffd9a0" intensity={6} onUpdate={(self) => self.lookAt(0, 0, 0)} position={[10, 10, 0]} scale={10} />
+            <Lightformer form="ring" color="#ffffff" intensity={6} onUpdate={(self) => self.lookAt(0, 0, 0)} position={[10, 10, 0]} scale={10} />
           </group>
         </Environment>
       </Canvas>

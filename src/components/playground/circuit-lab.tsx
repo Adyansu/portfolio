@@ -141,7 +141,8 @@ export function CircuitLab() {
     let raf = 0;
     let last = performance.now();
     const tick = (now: number) => {
-      const dt = Math.min(0.05, (now - last) / 1000);
+      // rAF timestamps can be slightly earlier than performance.now(); never step backwards.
+      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
       last = now;
       const L = live.current;
       let ph = L.playhead;
@@ -154,9 +155,13 @@ export function CircuitLab() {
           setPlaying(false);
         }
       }
-      const k = L.hover ?? Math.round(ph);
+      // Defensive: clamp the index and ignore any non-finite value, so a single bad
+      // frame can never poison the accumulated offset (NaN would stick forever).
+      const k = Math.max(0, Math.min(SAMPLES - 1, Math.round(L.hover ?? ph)));
       const rel = L.sim.iPeak ? L.sim.i[k] / L.sim.iPeak : 0;
-      flow.current += rel * FLOW_SPEED * dt;
+      const step = rel * FLOW_SPEED * dt;
+      if (Number.isFinite(step)) flow.current += step;
+      if (!Number.isFinite(flow.current)) flow.current = 0;
       schematic.current?.setFlow(flow.current);
       raf = requestAnimationFrame(tick);
     };
