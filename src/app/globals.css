@@ -97,6 +97,33 @@ body {
   100% { transform: translateY(200%); }
 }
 
+/* Case-study dialog entrance */
+.project-modal[open] {
+  animation: modal-in 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-modal[open]::backdrop {
+  animation: fade-in 0.3s ease;
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+/* Gold sweep across skill chips on hover */
+.shimmer {
+  background-image: linear-gradient(110deg, transparent 35%, rgb(201 162 77 / 0.35) 50%, transparent 65%);
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  background-repeat: no-repeat;
+  transition: background-position 0.8s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.shimmer:hover {
+  background-position: -20% 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -222,6 +222,16 @@ export const skills = {
 
 export const achievements: Achievement[] = [
   {
+    metric: "AIR 1289",
+    title: "JEE Advanced 2023",
+    detail: "All India Rank in India's toughest engineering entrance exam.",
+  },
+  {
+    metric: "AIR 1289",
+    title: "JEE Main 2023",
+    detail: "All India Rank in the national engineering entrance exam.",
+  },
+  {
     metric: "AIR 4",
     title: "NEST 2023",
     detail: "All India Rank 4 among 44,500+ applicants.",

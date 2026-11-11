@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { aboutBio, aboutStats, profile } from "@/data/resume";
+import { Reveal } from "./ui/reveal";
 
-// Basic version. Polished with scroll reveals in Step 4.
 export function About() {
   return (
     <section id="about" className="border-t border-line bg-surface-2/40">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-20 sm:px-6 md:grid-cols-[1fr_1.4fr] md:py-28">
-        <div className="relative mx-auto aspect-[4/5] w-64 sm:w-72">
+        <Reveal className="relative mx-auto aspect-[4/5] w-64 sm:w-72">
           <div className="absolute -inset-3 rounded-[2rem] border border-gold/50" />
           <div className="relative size-full overflow-hidden rounded-[1.75rem] border-2 border-gold shadow-soft">
             <Image
@@ -17,9 +17,9 @@ export function About() {
               className="object-cover object-[50%_35%]"
             />
           </div>
-        </div>
+        </Reveal>
 
-        <div>
+        <Reveal delay={0.1}>
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-gold-text">About</p>
           <h2 className="font-serif text-4xl font-semibold leading-tight text-primary-strong sm:text-5xl dark:text-text">
             Engineer by training,
@@ -41,7 +41,7 @@ export function About() {
               </div>
             ))}
           </dl>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
