@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Adyansu Beura · Portfolio
 
-## Getting Started
+Personal portfolio of **Adyansu Beura**, final-year Electrical Engineering undergraduate at IIT Kanpur, applying for frontend engineering roles.
 
-First, run the development server:
+**Live site:** _coming soon on Vercel_
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+A maroon, gold and ivory design with a real-time 3D hero and an interactive circuit simulator, built to show frontend craft rather than just describe it.
+
+## Highlights
+
+- **3D gold ring hero:** React Three Fiber scene with a procedurally lit gold band and a faceted ruby. It tilts toward the pointer anywhere on the page. The Three.js bundle is code-split and client-only, falls back to SVG without WebGL, pauses rendering when off-screen, and stays still under `prefers-reduced-motion`.
+- **Circuit Lab:** an in-browser RC / RL / RLC transient simulator.
+  - Circuits are modelled as state-space systems and integrated with **BDF2 (Gear-2)**.
+  - The step size adapts to the circuit's fastest pole, so stiff circuits stay stable.
+  - Results match the analytic step responses to within 0.01%.
+  - The UI has a live schematic with current-flow animation, a scrubbable dual-axis chart, damping metrics, and a generated SPICE netlist.
+- **Day and night themes:** CSS-variable design tokens, no flash of the wrong theme on load, and View Transitions for a smooth switch.
+- **Interaction details:**
+  - Letter-by-letter name reveal and scroll-drawn timeline.
+  - Pointer-tilt project cards with case-study dialogs built on native `<dialog>`, which provides the focus trap and Esc to close.
+  - Animated filters, count-up stats, active-section nav highlight, and a reading-progress bar.
+- **Accessibility and performance:**
+  - Semantic landmarks, `aria-current`, labelled controls, and visible focus rings.
+  - Reduced-motion support throughout.
+  - Statically prerendered page.
+  - Heavy demos are lazy-loaded only when they near the viewport.
+
+## Tech stack
+
+| Area | Tools |
+| --- | --- |
+| Framework | Next.js 16 (App Router), React 19, TypeScript |
+| Styling | Tailwind CSS v4, CSS custom-property design tokens |
+| Motion | Motion (Framer Motion), View Transitions API |
+| 3D | Three.js, React Three Fiber, drei |
+| Hosting | Vercel |
+
+## Project structure
+
+```
+src/
+  app/            layout, global styles and design tokens, page
+  components/     sections (hero, about, experience, projects, playground, …)
+    hero/         3D ring scene + SVG fallback
+    playground/   Circuit Lab (schematic, chart, controls)
+  data/resume.ts  all site content in one typed file
+  hooks/          useActiveSection
+  lib/circuit.ts  BDF2 transient solver, SI / SPICE formatting, netlist export
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+All text content lives in [`src/data/resume.ts`](src/data/resume.ts), so the site can be updated without touching components.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Run locally
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # production build
+```
 
-## Learn More
+### Optional: contact form delivery
 
-To learn more about Next.js, take a look at the following resources:
+Create a free access key at [web3forms.com](https://web3forms.com) and set it as an environment variable (locally in `.env.local`, or in Vercel's project settings):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+NEXT_PUBLIC_WEB3FORMS_KEY=your-key
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Without it, the contact form opens a pre-filled email instead.
 
-## Deploy on Vercel
+## Contact
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- GitHub: [@Adyansu](https://github.com/Adyansu)
+- Related projects: [SpiceLite](https://github.com/Adyansu/SpiceLite) · [Eventrix](https://github.com/Adyansu/Eventrix)
