@@ -54,6 +54,25 @@ export const profile = {
   },
 } as const;
 
+/** Cycling line under the name in the hero. */
+export const heroRoles = [
+  "Frontend Engineer",
+  "Full-stack builder",
+  "3D graphics tinkerer",
+  "Interaction design nerd",
+];
+
+export const aboutStats = [
+  { value: "Qualcomm", label: "Engineering intern, 2026" },
+  { value: "8.6", label: "CPI at IIT Kanpur" },
+  { value: "AIR 4", label: "NEST 2023, of 44,500+" },
+];
+
+export const aboutBio = [
+  "I'm a final-year Electrical Engineering student at IIT Kanpur who loves building things people can see and touch on a screen. My work spans a real-time 3D renderer written from scratch in C++ and OpenGL to Eventrix, a full-stack MERN platform for campus events.",
+  "At Qualcomm I worked on backend services and performance analysis for tools handling large-scale design data. It taught me to care about what happens after the click: fast data retrieval, lean requests, and interfaces that stay responsive under load.",
+];
+
 export const navLinks: Link[] = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
