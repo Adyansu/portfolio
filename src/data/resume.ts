@@ -222,7 +222,7 @@ export const skills = {
 
 export const achievements: Achievement[] = [
   {
-    metric: "AIR 1289",
+    metric: "AIR 1277",
     title: "JEE Advanced 2023",
     detail: "All India Rank in India's toughest engineering entrance exam.",
   },
