@@ -22,6 +22,8 @@
   --border: rgb(131 39 41 / 0.14);
   --nav-bg: rgb(251 246 238 / 0.75);
   --shadow: 0 10px 30px -12px rgb(90 26 30 / 0.25);
+  --chart-v: #832729;     /* voltage trace */
+  --chart-i: #b8862f;     /* current trace */
   color-scheme: light;
 }
 
@@ -40,6 +42,8 @@
   --border: rgb(212 175 95 / 0.18);
   --nav-bg: rgb(23 12 13 / 0.72);
   --shadow: 0 10px 30px -12px rgb(0 0 0 / 0.6);
+  --chart-v: #f0d79a;
+  --chart-i: #e0697f;
   color-scheme: dark;
 }
 

@@ -24,7 +24,7 @@ export function Navbar() {
           <span className="grid size-10 place-items-center rounded-full border border-gold font-serif text-lg font-semibold tracking-wider text-primary transition-colors group-hover:bg-primary group-hover:text-on-primary">
             {profile.initials}
           </span>
-          <span className="hidden font-serif text-xl font-medium text-primary-strong sm:block dark:text-text">
+          <span className="hidden font-serif text-xl font-medium text-primary-strong lg:block dark:text-text">
             {profile.name}
           </span>
         </a>
