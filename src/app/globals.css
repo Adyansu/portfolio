@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* Night theme is toggled with <html data-theme="dark"> */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ------------------------------------------------------------------
+   Design tokens: "Ivory" (day) and "Wine" (night)
+   Inspired by a maroon / gold / ivory jewellery palette.
+------------------------------------------------------------------- */
+:root {
+  --bg: #fbf6ee;          /* ivory page */
+  --surface: #fffdf8;     /* cards */
+  --surface-2: #f3e9da;   /* champagne wash */
+  --text: #2b1b17;        /* cocoa */
+  --text-muted: #6b5148;
+  --primary: #832729;     /* maroon */
+  --primary-strong: #5a1a1e; /* wine */
+  --on-primary: #fbf6ee;
+  --gold: #c9a24d;        /* decorative gold (borders, glows, 3D) */
+  --gold-soft: #e8d5b0;   /* champagne */
+  --gold-text: #8c6a1f;   /* gold that passes contrast on ivory */
+  --border: rgb(131 39 41 / 0.14);
+  --nav-bg: rgb(251 246 238 / 0.75);
+  --shadow: 0 10px 30px -12px rgb(90 26 30 / 0.25);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #170c0d;
+  --surface: #241214;
+  --surface-2: #33191c;
+  --text: #f5ebdd;
+  --text-muted: #c9b59c;
+  --primary: #d4af5f;     /* gold leads at night */
+  --primary-strong: #f0d79a;
+  --on-primary: #1f0f10;
+  --gold: #d4af5f;
+  --gold-soft: #5a3a22;
+  --gold-text: #e2c27a;
+  --border: rgb(212 175 95 / 0.18);
+  --nav-bg: rgb(23 12 13 / 0.72);
+  --shadow: 0 10px 30px -12px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-on-primary: var(--on-primary);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-text: var(--gold-text);
+  --color-line: var(--border);
+
+  --font-sans: var(--font-manrope);
+  --font-serif: var(--font-cormorant);
+
+  --shadow-soft: var(--shadow);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+::selection {
+  background: var(--gold);
+  color: #2b1b17;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Thin gold rule used as an ornamental divider */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
